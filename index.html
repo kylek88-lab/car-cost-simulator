@@ -24,6 +24,60 @@
       .container { max-width: 1100px; }
     }
 
+    /* サイト共通ナビゲーション */
+    .site-nav {
+      margin-bottom: 16px;
+    }
+
+    .breadcrumb {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    .breadcrumb a {
+      color: #64748b;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .breadcrumb a:hover,
+    .breadcrumb a:focus-visible {
+      color: #2b6cb0;
+      outline: none;
+    }
+
+    .breadcrumb-sep {
+      color: #94a3b8;
+      user-select: none;
+    }
+
+    .breadcrumb-current {
+      color: #475569;
+    }
+
+    .back-to-top {
+      display: inline-flex;
+      align-items: center;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: #2b6cb0;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .back-to-top:hover,
+    .back-to-top:focus-visible {
+      color: #1e4e8c;
+      outline: none;
+    }
+
     header {
       background: linear-gradient(135deg, #2b6cb0, #3182ce);
       color: #fff;
@@ -498,6 +552,15 @@
 </head>
 <body>
   <div class="container">
+    <nav class="site-nav" aria-label="サイト内ナビゲーション">
+      <div class="breadcrumb" aria-label="パンくずリスト">
+        <a href="https://financial-tools-lab.vercel.app">ホーム</a>
+        <span class="breadcrumb-sep" aria-hidden="true">&gt;</span>
+        <span class="breadcrumb-current" aria-current="page">車買い替えコスト比較シミュレーター</span>
+      </div>
+      <a href="https://financial-tools-lab.vercel.app" class="back-to-top">← ツール集トップへ戻る</a>
+    </nav>
+
     <header>
       <h1>車買い替え 比較シミュレーター</h1>
       <p>今の車に乗り続けるか、新しい車に買い替えるか。総コストを比較できます。</p>
