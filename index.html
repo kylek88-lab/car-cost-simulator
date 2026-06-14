@@ -21,9 +21,7 @@
     }
 
     @media (min-width: 768px) {
-      .container {
-        max-width: 1080px;
-      }
+      .container { max-width: 1100px; }
     }
 
     header {
@@ -45,42 +43,22 @@
       margin-top: 16px;
       padding-top: 14px;
       border-top: 1px solid rgba(255, 255, 255, 0.25);
-      color: #fff;
     }
 
-    .display-unit-label {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.95);
-    }
-
-    .display-unit-options {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 14px;
-    }
+    .display-unit-label { font-size: 0.82rem; font-weight: 600; }
+    .display-unit-options { display: flex; flex-wrap: wrap; gap: 8px 14px; }
 
     .display-unit-option {
       display: flex;
       align-items: center;
       gap: 6px;
       font-size: 0.85rem;
-      font-weight: 500;
-      color: rgba(255, 255, 255, 0.85);
       cursor: pointer;
+      color: rgba(255,255,255,0.85);
     }
 
-    .display-unit-option input {
-      flex: none;
-      width: auto;
-      margin: 0;
-      accent-color: #fff;
-    }
-
-    .display-unit-option:has(input:checked) {
-      font-weight: 700;
-      color: #fff;
-    }
+    .display-unit-option input { width: auto; margin: 0; accent-color: #fff; }
+    .display-unit-option:has(input:checked) { font-weight: 700; color: #fff; }
 
     section {
       background: #fff;
@@ -90,49 +68,26 @@
       border: 1px solid #e8edf3;
     }
 
-    /*
-     * メインレイアウト
-     * スマホ: 縦1列（入力 → 比較 → 結果）
-     * PC: 左に入力、右に比較（上）→ 結果（下）
-     * ※ 利用者が先に「どちらが得か」を確認できるよう、比較欄を結果欄より上に配置
-     */
+    /* PC: 左=入力、右=結果（判定・グラフ・表） */
     .main-layout {
       display: flex;
       flex-direction: column;
       gap: 18px;
     }
 
-    .main-layout > section {
-      margin-bottom: 0;
-    }
-
     @media (min-width: 768px) {
       .main-layout {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-areas:
-          "input   compare"
-          "input   result";
+        grid-template-columns: 1fr 1.15fr;
+        grid-template-areas: "input result";
         gap: 20px 24px;
-        align-items: stretch;
+        align-items: start;
       }
-
-      .section-input   { grid-area: input; }
-      .section-compare { grid-area: compare; }
-      .section-result  { grid-area: result; }
-
-      .main-layout > section {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-      }
+      .section-input { grid-area: input; }
+      .section-result { grid-area: result; }
     }
 
-    h2 {
-      font-size: 1.05rem;
-      color: #2d3748;
-      margin-bottom: 6px;
-    }
+    h2 { font-size: 1.05rem; color: #2d3748; margin-bottom: 6px; }
 
     .section-desc {
       font-size: 0.85rem;
@@ -149,10 +104,24 @@
       padding: 2px 8px;
       border-radius: 99px;
       margin-right: 6px;
-      vertical-align: middle;
     }
 
-    .field { margin-bottom: 16px; }
+    .field-group {
+      margin-bottom: 20px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid #edf2f7;
+    }
+
+    .field-group:last-of-type { border-bottom: none; }
+
+    .field-group-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #2b6cb0;
+      margin-bottom: 12px;
+    }
+
+    .field { margin-bottom: 14px; }
 
     label {
       display: block;
@@ -162,11 +131,7 @@
       margin-bottom: 6px;
     }
 
-    .input-wrap {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .input-wrap { display: flex; align-items: center; gap: 8px; }
 
     input {
       flex: 1;
@@ -190,11 +155,7 @@
       flex-shrink: 0;
     }
 
-    .hint {
-      font-size: 0.78rem;
-      color: #a0aec0;
-      margin-top: 4px;
-    }
+    .hint { font-size: 0.78rem; color: #a0aec0; margin-top: 4px; }
 
     .error {
       background: #fff5f5;
@@ -211,13 +172,12 @@
 
     /* 判定ボックス */
     .verdict-box {
-      padding: 20px;
+      padding: 18px 20px;
       border-radius: 12px;
       text-align: center;
       margin-bottom: 20px;
       border: 2px solid #e2e8f0;
       background: #f7fafc;
-      transition: background 0.2s, border-color 0.2s;
     }
 
     .verdict-box.keep-better {
@@ -235,15 +195,10 @@
       border-color: #f6e05e;
     }
 
-    .verdict-label {
-      font-size: 0.82rem;
-      color: #718096;
-      margin-bottom: 8px;
-      font-weight: 600;
-    }
+    .verdict-icon { font-size: 1.6rem; margin-bottom: 6px; line-height: 1; }
 
     .verdict-main {
-      font-size: 1.5rem;
+      font-size: 1.15rem;
       font-weight: 700;
       color: #2d3748;
       line-height: 1.4;
@@ -253,73 +208,250 @@
     .verdict-box.replace-better .verdict-main { color: #2b6cb0; }
 
     .verdict-sub {
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       color: #718096;
       margin-top: 8px;
     }
 
-    /* 結果カード */
-    .result-cards {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
+    /* 積み上げ棒グラフ */
+    .chart-block {
+      margin-bottom: 20px;
+    }
+
+    .chart-block-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #2d3748;
+      margin-bottom: 14px;
+    }
+
+    .stacked-bar-item {
       margin-bottom: 16px;
     }
 
-    @media (min-width: 480px) {
-      .result-cards {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    .stacked-bar-item:last-child { margin-bottom: 0; }
+
+    .stacked-bar-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #4a5568;
+      margin-bottom: 6px;
     }
 
-    .result-card {
-      padding: 14px;
-      border-radius: 10px;
-      border: 1px solid #e2e8f0;
-      background: #f7fafc;
+    .stacked-bar-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 10px;
     }
 
-    .result-card.highlight {
-      background: #ebf8ff;
-      border-color: #90cdf4;
+    .stacked-bar-track {
+      display: flex;
+      height: 36px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #edf2f7;
+      min-width: 0;
     }
 
-    .result-card-label {
+    .stacked-seg {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      min-width: 2px;
+      overflow: hidden;
+      transition: width 0.4s ease;
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .stacked-seg.seg-fuel { background: #3B82F6; }
+    .stacked-seg.seg-maint { background: #10B981; }
+    .stacked-seg.seg-vehicle { background: #F59E0B; }
+
+    .stacked-bar-total {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #2d3748;
+      white-space: nowrap;
+    }
+
+    .chart-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+      margin-top: 14px;
       font-size: 0.78rem;
       color: #718096;
-      margin-bottom: 6px;
-      line-height: 1.4;
     }
 
-    .result-card-value {
-      font-size: 1.2rem;
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    .legend-dot.fuel { background: #3B82F6; }
+    .legend-dot.maint { background: #10B981; }
+    .legend-dot.vehicle { background: #F59E0B; }
+
+    /* 比較表 */
+    .compare-table-wrap {
+      background: #f7fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 14px 10px;
+      margin-bottom: 16px;
+    }
+
+    .compare-table-block-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #2d3748;
+      margin-bottom: 12px;
+      padding: 0 4px;
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: 0.84rem;
+    }
+
+    .compare-table th,
+    .compare-table td {
+      padding: 10px 6px;
+      text-align: right;
+      vertical-align: top;
+    }
+
+    .compare-table th:first-child,
+    .compare-table td:first-child {
+      text-align: left;
+      width: 26%;
+      color: #718096;
+      font-weight: 600;
+      vertical-align: middle;
+    }
+
+    .compare-table thead th {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .compare-table th.col-keep {
+      background: #dbeafe;
+      color: #1e40af;
+      border-radius: 6px 6px 0 0;
+    }
+
+    .compare-table th.col-replace {
+      background: #d1fae5;
+      color: #065f46;
+      border-radius: 6px 6px 0 0;
+    }
+
+    .compare-table tbody tr + tr td {
+      border-top: 1px solid #edf2f7;
+    }
+
+    .cell-main {
       font-weight: 700;
       color: #2d3748;
     }
 
-    .result-card-sub {
-      font-size: 0.78rem;
+    .cell-sub {
+      font-size: 0.72rem;
       color: #a0aec0;
+      margin-top: 3px;
+      line-height: 1.35;
+    }
+
+    .compare-table td.val-keep .cell-main { color: #276749; }
+    .compare-table td.val-replace .cell-main { color: #2b6cb0; }
+
+    .compare-table tr.row-total td {
+      background: #f0fdf4;
+      border-top: 2px solid #cbd5e0;
+      padding-top: 12px;
+      padding-bottom: 10px;
+    }
+
+    .compare-table tr.row-total td:first-child {
+      color: #2d3748;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .compare-table tr.row-total .cell-main {
+      font-size: 1.05rem;
+    }
+
+    @media (max-width: 380px) {
+      .compare-table { font-size: 0.78rem; }
+      .stacked-seg { font-size: 0.65rem; }
+    }
+
+    /* 差額サマリー */
+    .summary-box {
+      background: #f0fff4;
+      border: 2px solid #9ae6b4;
+      border-radius: 10px;
+      padding: 14px 16px;
+      text-align: center;
+      margin-bottom: 16px;
+      font-size: 0.9rem;
+      color: #276749;
+    }
+
+    .summary-box.replace-win {
+      background: #ebf8ff;
+      border-color: #90cdf4;
+      color: #2b6cb0;
+    }
+
+    .summary-box.neutral-win {
+      background: #fffff0;
+      border-color: #f6e05e;
+      color: #744210;
+    }
+
+    .summary-box strong {
+      font-size: 1.15rem;
+      display: block;
       margin-top: 4px;
     }
 
-    /* 総コスト比較 */
-    .total-compare {
+    /* 年間コスト */
+    .annual-cost {
       background: #f7fafc;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
       padding: 14px 16px;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
 
-    .total-compare-title {
+    .annual-cost-title {
       font-size: 0.78rem;
       font-weight: 700;
       color: #4a5568;
       margin-bottom: 10px;
     }
 
-    .total-compare-row {
+    .annual-cost-row {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
@@ -327,167 +459,25 @@
       padding: 8px 0;
     }
 
-    .total-compare-row + .total-compare-row {
+    .annual-cost-row + .annual-cost-row {
       border-top: 1px solid #edf2f7;
     }
 
-    .total-compare-label {
-      font-size: 0.85rem;
-      color: #718096;
-    }
+    .annual-cost-label { font-size: 0.85rem; color: #718096; }
 
-    .total-compare-value {
+    .annual-cost-value {
       font-size: 1.05rem;
       font-weight: 700;
-      color: #2d3748;
       text-align: right;
     }
 
-    .total-compare-value.keep { color: #276749; }
-    .total-compare-value.replace { color: #2b6cb0; }
+    .annual-cost-value.keep { color: #276749; }
+    .annual-cost-value.replace { color: #2b6cb0; }
 
-    .total-compare-row.diff {
-      background: #fff;
-      margin: 8px -8px -4px;
-      padding: 10px 8px;
-      border-radius: 6px;
-      border-top: none;
-    }
-
-    .total-compare-row.diff .total-compare-label {
-      font-weight: 600;
-      color: #4a5568;
-    }
-
-    .total-compare-row.diff .total-compare-value {
-      font-size: 1.15rem;
-    }
-
-    /* 年間コスト（総コスト ÷ 比較年数） */
-    .annual-cost {
-      background: #f7fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      padding: 14px 16px;
-      margin-bottom: 16px;
-    }
-
-    /* 棒グラフ */
-    .chart-title {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #4a5568;
-      margin-bottom: 14px;
-    }
-
-    .chart {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    /* 1つの選択肢（維持 / 買い替え）をまとめるブロック */
-    .chart-item {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .chart-item-label {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #4a5568;
-      line-height: 1.3;
-    }
-
-    /* 横棒グラフ + 総コスト金額（総コスト比較を最優先） */
-    .chart-bar-row {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 10px;
-    }
-
-    @media (max-width: 480px) {
-      .chart-bar-row {
-        grid-template-columns: 1fr;
-        gap: 6px;
-      }
-      .chart-amount {
-        text-align: left !important;
-        font-size: 0.9rem;
-      }
-    }
-
-    .chart-bar-wrap {
-      background: #edf2f7;
-      border-radius: 8px;
-      height: 32px;
-      overflow: hidden;
-    }
-
-    .chart-bar {
-      height: 100%;
-      border-radius: 8px;
-      transition: width 0.4s ease;
-      min-width: 2px;
-    }
-
-    .chart-bar.bar-keep { background: #68d391; }
-    .chart-bar.bar-replace { background: #63b3ed; }
-
-    .chart-amount {
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: #2d3748;
-      text-align: right;
-      white-space: nowrap;
-    }
-
-    /* 棒グラフ直下の内訳（車両代・維持費・燃料代） */
-    .chart-breakdown {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 4px 0;
-      font-size: 0.82rem;
-      color: #718096;
-      line-height: 1.5;
-    }
-
-    .breakdown-item {
-      font-weight: 500;
-    }
-
-    .chart-breakdown-value {
-      font-weight: 700;
-    }
-
-    /* 内訳の色分け：車両代=オレンジ / 維持費=緑 / 燃料代=青 */
-    .breakdown-vehicle {
-      color: #c05621;
-    }
-    .breakdown-vehicle .chart-breakdown-value {
-      color: #dd6b20;
-    }
-
-    .breakdown-maintenance {
-      color: #276749;
-    }
-    .breakdown-maintenance .chart-breakdown-value {
-      color: #38a169;
-    }
-
-    .breakdown-fuel {
-      color: #2c5282;
-    }
-    .breakdown-fuel .chart-breakdown-value {
-      color: #3182ce;
-    }
-
-    .chart-breakdown-sep {
-      color: #cbd5e0;
-      margin: 0 8px;
+    .result-note {
+      font-size: 0.75rem;
+      color: #a0aec0;
+      line-height: 1.6;
     }
 
     footer {
@@ -503,12 +493,7 @@
     }
 
     footer p { margin: 0; }
-
-    footer .footer-sub {
-      margin-top: 8px;
-      font-size: 0.72rem;
-      color: #b8c2cc;
-    }
+    footer .footer-sub { margin-top: 8px; font-size: 0.72rem; color: #b8c2cc; }
   </style>
 </head>
 <body>
@@ -520,12 +505,10 @@
         <span class="display-unit-label">表示単位</span>
         <div class="display-unit-options">
           <label class="display-unit-option">
-            <input type="radio" name="displayUnit" value="man" checked />
-            万円表示
+            <input type="radio" name="displayUnit" value="man" checked /> 万円表示
           </label>
           <label class="display-unit-option">
-            <input type="radio" name="displayUnit" value="yen" />
-            円表示
+            <input type="radio" name="displayUnit" value="yen" /> 円表示
           </label>
         </div>
       </div>
@@ -533,60 +516,11 @@
 
     <main class="main-layout">
 
-      <!-- ① 入力（条件変更で比較・結果が自動更新） -->
+      <!-- 入力条件 -->
       <section class="section-input">
-        <h2><span class="step-badge">入力</span>条件を入力</h2>
-        <p class="section-desc">数字を変えると、比較・結果が自動で更新されます。</p>
+        <h2><span class="step-badge">入力</span>入力条件</h2>
+        <p class="section-desc">数字を変えると、結果が自動で更新されます。</p>
         <div id="error" class="error"></div>
-
-        <div class="field">
-          <label for="annualDistance">年間走行距離</label>
-          <div class="input-wrap">
-            <input type="text" inputmode="numeric" id="annualDistance" value="10,000" autocomplete="off" />
-            <span class="unit">km</span>
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="currentMileage">現在の燃費</label>
-          <div class="input-wrap">
-            <input type="number" id="currentMileage" value="12" min="0.1" step="0.1" />
-            <span class="unit">km/L</span>
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="newMileage">新車の燃費</label>
-          <div class="input-wrap">
-            <input type="number" id="newMileage" value="20" min="0.1" step="0.1" />
-            <span class="unit">km/L</span>
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="gasPrice">ガソリン価格</label>
-          <div class="input-wrap">
-            <input type="number" id="gasPrice" value="170" min="0" step="1" />
-            <span class="unit">円/L</span>
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="newCarPrice">新車価格</label>
-          <div class="input-wrap">
-            <input type="text" inputmode="numeric" id="newCarPrice" value="3,000,000" autocomplete="off" />
-            <span class="unit">円</span>
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="tradeInPrice">下取り価格</label>
-          <div class="input-wrap">
-            <input type="text" inputmode="numeric" id="tradeInPrice" value="500,000" autocomplete="off" />
-            <span class="unit">円</span>
-          </div>
-          <p class="hint">現在の車を下取りに出した場合の価格</p>
-        </div>
 
         <div class="field">
           <label for="compareYears">比較年数</label>
@@ -594,138 +528,175 @@
             <input type="number" id="compareYears" value="5" min="1" step="1" />
             <span class="unit">年</span>
           </div>
-          <p class="hint">この期間の総コストを比較します</p>
         </div>
 
-        <div class="field">
-          <label for="currentMaintenance">現在の車の年間維持費</label>
-          <div class="input-wrap">
-            <input type="text" inputmode="numeric" id="currentMaintenance" value="100,000" autocomplete="off" />
-            <span class="unit">円／年</span>
+        <div class="field-group">
+          <div class="field-group-title">現在の車の情報</div>
+          <div class="field">
+            <label for="annualDistance">年間走行距離</label>
+            <div class="input-wrap">
+              <input type="text" inputmode="numeric" id="annualDistance" value="10,000" autocomplete="off" />
+              <span class="unit">km</span>
+            </div>
           </div>
-          <p class="hint">車検・保険・税金・メンテナンスなど</p>
+          <div class="field">
+            <label for="currentMileage">燃費</label>
+            <div class="input-wrap">
+              <input type="number" id="currentMileage" value="10" min="0.1" step="0.1" />
+              <span class="unit">km/L</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="gasPrice">ガソリン価格</label>
+            <div class="input-wrap">
+              <input type="number" id="gasPrice" value="170" min="0" step="1" />
+              <span class="unit">円/L</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="currentMaintenance">年間維持費</label>
+            <div class="input-wrap">
+              <input type="text" inputmode="numeric" id="currentMaintenance" value="100,000" autocomplete="off" />
+              <span class="unit">円／年</span>
+            </div>
+            <p class="hint">車検・保険・税金・メンテナンスなど</p>
+          </div>
         </div>
 
-        <div class="field">
-          <label for="newMaintenance">新しい車の年間維持費</label>
-          <div class="input-wrap">
-            <input type="text" inputmode="numeric" id="newMaintenance" value="50,000" autocomplete="off" />
-            <span class="unit">円／年</span>
+        <div class="field-group">
+          <div class="field-group-title">新しい車の情報</div>
+          <div class="field">
+            <label for="newMileage">燃費</label>
+            <div class="input-wrap">
+              <input type="number" id="newMileage" value="16" min="0.1" step="0.1" />
+              <span class="unit">km/L</span>
+            </div>
           </div>
-          <p class="hint">車検・保険・税金・メンテナンスなど</p>
+          <div class="field">
+            <label for="newMaintenance">年間維持費</label>
+            <div class="input-wrap">
+              <input type="text" inputmode="numeric" id="newMaintenance" value="50,000" autocomplete="off" />
+              <span class="unit">円／年</span>
+            </div>
+            <p class="hint">車検・保険・税金・メンテナンスなど</p>
+          </div>
+          <div class="field">
+            <label for="newCarPrice">新車価格</label>
+            <div class="input-wrap">
+              <input type="text" inputmode="numeric" id="newCarPrice" value="3,000,000" autocomplete="off" />
+              <span class="unit">円</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="tradeInPrice">下取り価格</label>
+            <div class="input-wrap">
+              <input type="text" inputmode="numeric" id="tradeInPrice" value="500,000" autocomplete="off" />
+              <span class="unit">円</span>
+            </div>
+          </div>
         </div>
       </section>
 
-      <!-- ② 比較（総コストの棒グラフ・内訳 — 先に表示） -->
-      <section class="section-compare">
-        <h2><span class="step-badge">比較</span>総コストを棒グラフで見る</h2>
-        <p class="section-desc">総コストを棒グラフで比較し、車両代・維持費・燃料代の内訳も確認できます。</p>
-
-        <div class="chart">
-          <!-- 今の車を乗り続ける場合 -->
-          <div class="chart-item">
-            <div class="chart-item-label">今の車に乗り続ける</div>
-            <div class="chart-bar-row">
-              <div class="chart-bar-wrap">
-                <div class="chart-bar bar-keep" id="barKeep" style="width: 0%"></div>
-              </div>
-              <div class="chart-amount" id="barKeepAmount">—</div>
-            </div>
-            <div class="chart-breakdown" id="breakdownKeep">—</div>
-          </div>
-
-          <!-- 新しい車に買い替える場合 -->
-          <div class="chart-item">
-            <div class="chart-item-label">新しい車に買い替える</div>
-            <div class="chart-bar-row">
-              <div class="chart-bar-wrap">
-                <div class="chart-bar bar-replace" id="barReplace" style="width: 0%"></div>
-              </div>
-              <div class="chart-amount" id="barReplaceAmount">—</div>
-            </div>
-            <div class="chart-breakdown" id="breakdownReplace">—</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ③ 結果（判定・詳細内訳 — 比較の後に表示） -->
+      <!-- 結果 -->
       <section class="section-result">
-        <h2><span class="step-badge">結果</span>コスト比較</h2>
-        <p class="section-desc">燃料代・維持費・車両購入コストを合算した総コストで比較します。</p>
+        <h2><span class="step-badge">結果</span>シミュレーション結果</h2>
 
+        <!-- 判定 -->
         <div class="verdict-box" id="verdictBox">
-          <div class="verdict-label">判定</div>
+          <div class="verdict-icon" id="verdictIcon">—</div>
           <div class="verdict-main" id="verdictMain">—</div>
           <div class="verdict-sub" id="verdictSub"></div>
         </div>
 
-        <div class="result-cards">
-          <div class="result-card">
-            <div class="result-card-label">現在の車を維持した場合の<br>燃料代（比較期間）</div>
-            <div class="result-card-value" id="keepFuelCost">—</div>
-            <div class="result-card-sub" id="keepFuelSub"></div>
+        <!-- 積み上げ棒グラフ -->
+        <div class="chart-block">
+          <div class="chart-block-title" id="chartTitle">総コストの比較（5年間の合計）</div>
+
+          <div class="stacked-bar-item">
+            <div class="stacked-bar-label">現在の車</div>
+            <div class="stacked-bar-row">
+              <div class="stacked-bar-track" id="stackKeep"></div>
+              <div class="stacked-bar-total" id="stackKeepTotal">—</div>
+            </div>
           </div>
-          <div class="result-card">
-            <div class="result-card-label">買い替えた場合の<br>燃料代（比較期間）</div>
-            <div class="result-card-value" id="replaceFuelCost">—</div>
-            <div class="result-card-sub" id="replaceFuelSub"></div>
+
+          <div class="stacked-bar-item">
+            <div class="stacked-bar-label">新しい車</div>
+            <div class="stacked-bar-row">
+              <div class="stacked-bar-track" id="stackReplace"></div>
+              <div class="stacked-bar-total" id="stackReplaceTotal">—</div>
+            </div>
           </div>
-          <div class="result-card">
-            <div class="result-card-label">現在の車の<br>維持費合計（比較期間）</div>
-            <div class="result-card-value" id="keepMaintenanceCost">—</div>
-            <div class="result-card-sub" id="keepMaintenanceSub"></div>
-          </div>
-          <div class="result-card">
-            <div class="result-card-label">新しい車の<br>維持費合計（比較期間）</div>
-            <div class="result-card-value" id="replaceMaintenanceCost">—</div>
-            <div class="result-card-sub" id="replaceMaintenanceSub"></div>
-          </div>
-          <div class="result-card highlight">
-            <div class="result-card-label">車両購入コスト</div>
-            <div class="result-card-value" id="purchaseCost">—</div>
-            <div class="result-card-sub">新車価格 − 下取り価格</div>
-          </div>
-          <div class="result-card">
-            <div class="result-card-label">総コスト差額</div>
-            <div class="result-card-value" id="costDiff">—</div>
-            <div class="result-card-sub">買い替え − 維持</div>
+
+          <div class="chart-legend">
+            <span class="legend-item"><span class="legend-dot fuel"></span>燃料代</span>
+            <span class="legend-item"><span class="legend-dot maint"></span>維持費</span>
+            <span class="legend-item"><span class="legend-dot vehicle"></span>車両代</span>
           </div>
         </div>
 
-        <!-- 年間コスト（総コスト ÷ 比較年数） -->
+        <!-- 費用の内訳（比較表） -->
+        <div class="compare-table-wrap">
+          <div class="compare-table-block-title" id="tableTitle">費用の内訳（5年間の合計）</div>
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th>項目</th>
+                <th class="col-keep">現在の車を維持</th>
+                <th class="col-replace">新しい車に買替</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>燃料代</td>
+                <td class="val-keep" id="cellKeepFuel"></td>
+                <td class="val-replace" id="cellReplaceFuel"></td>
+              </tr>
+              <tr>
+                <td>維持費</td>
+                <td class="val-keep" id="cellKeepMaint"></td>
+                <td class="val-replace" id="cellReplaceMaint"></td>
+              </tr>
+              <tr>
+                <td>車両代</td>
+                <td class="val-keep" id="cellKeepVehicle"></td>
+                <td class="val-replace" id="cellReplaceVehicle"></td>
+              </tr>
+              <tr class="row-total">
+                <td>総コスト</td>
+                <td class="val-keep" id="cellKeepTotal"></td>
+                <td class="val-replace" id="cellReplaceTotal"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 差額サマリー -->
+        <div class="summary-box" id="summaryBox">
+          <span id="summaryText">—</span>
+          <strong id="summaryAmount">—</strong>
+        </div>
+
+        <!-- 年間コスト -->
         <div class="annual-cost">
-          <div class="total-compare-title">年間コスト</div>
-          <div class="total-compare-row">
-            <span class="total-compare-label">今の車に乗り続ける</span>
-            <span class="total-compare-value keep" id="annualKeep">—</span>
+          <div class="annual-cost-title">年間コスト</div>
+          <div class="annual-cost-row">
+            <span class="annual-cost-label">今の車に乗り続ける</span>
+            <span class="annual-cost-value keep" id="annualKeep">—</span>
           </div>
-          <div class="total-compare-row">
-            <span class="total-compare-label">新しい車に買い替える</span>
-            <span class="total-compare-value replace" id="annualReplace">—</span>
+          <div class="annual-cost-row">
+            <span class="annual-cost-label">新しい車に買い替える</span>
+            <span class="annual-cost-value replace" id="annualReplace">—</span>
           </div>
         </div>
 
-        <div class="total-compare">
-          <div class="total-compare-title">総コスト内訳</div>
-          <div class="total-compare-row">
-            <span class="total-compare-label">今の車に乗り続ける</span>
-            <span class="total-compare-value keep" id="totalKeep">—</span>
-          </div>
-          <div class="total-compare-row">
-            <span class="total-compare-label">新しい車に買い替える</span>
-            <span class="total-compare-value replace" id="totalReplace">—</span>
-          </div>
-          <div class="total-compare-row diff">
-            <span class="total-compare-label">差額</span>
-            <span class="total-compare-value" id="totalDiff">—</span>
-          </div>
-        </div>
+        <p class="result-note">※ガソリン価格・維持費は一定と仮定した試算です。</p>
       </section>
 
     </main>
 
     <footer>
-      <p>※本シミュレーターは一定の条件に基づく参考試算です。実際の費用を保証するものではありません。維持費は入力値に基づく概算です。</p>
+      <p>※本シミュレーターは一定の条件に基づく参考試算です。実際の費用を保証するものではありません。</p>
       <p class="footer-sub">燃料代 = 年間走行距離 ÷ 燃費 × ガソリン価格 × 比較年数 ／ 維持費 = 年間維持費 × 比較年数</p>
     </footer>
   </div>
@@ -733,7 +704,6 @@
   <script>
     // ===== 表示まわりの共通関数 =====
 
-    /** 画面上部で選ばれている表示単位（万円 / 円）を取得 */
     function getDisplayUnit() {
       var selected = document.querySelector('input[name="displayUnit"]:checked');
       return selected ? selected.value : "man";
@@ -742,13 +712,23 @@
     /** 金額を「180万円」または「1,800,000円」の形式に変換 */
     function formatMoney(value) {
       if (getDisplayUnit() === "man") {
-        var man = Math.round(value / 10000);
-        return man.toLocaleString("ja-JP") + "万円";
+        return Math.round(value / 10000).toLocaleString("ja-JP") + "万円";
       }
       return Math.round(value).toLocaleString("ja-JP") + "円";
     }
 
-    /** 年間金額の表示（例: 14.2万円／年） */
+    /** 棒グラフ内の短いラベル（例: 71万） */
+    function formatBarLabel(value) {
+      if (getDisplayUnit() === "man") {
+        return Math.round(value / 10000).toLocaleString("ja-JP") + "万";
+      }
+      if (value >= 10000) {
+        return Math.round(value / 10000).toLocaleString("ja-JP") + "万";
+      }
+      return Math.round(value).toLocaleString("ja-JP");
+    }
+
+    /** 年間金額（例: 14.2万円／年） */
     function formatMoneyPerYear(value) {
       if (getDisplayUnit() === "man") {
         var man = value / 10000;
@@ -761,102 +741,81 @@
       return Math.round(value).toLocaleString("ja-JP") + "円／年";
     }
 
-    /** 入力欄の文字列から数値を取り出す（カンマは除去） */
     function parseInputNumber(str) {
       var cleaned = String(str).replace(/[,，\s]/g, "");
       var n = Number(cleaned);
       return Number.isFinite(n) ? n : 0;
     }
 
-    /** 入力欄表示用のカンマ区切り */
     function formatInputComma(value) {
       if (!Number.isFinite(value) || value === 0) return "0";
       return Math.round(value).toLocaleString("ja-JP");
     }
 
-    /** 金額入力欄のフォーカス制御（入力中はカンマなし、離れたらカンマ付き） */
     function setupMoneyInput(id) {
       var el = document.getElementById(id);
-
       el.addEventListener("focus", function () {
         var num = parseInputNumber(el.value);
         el.value = num === 0 ? "" : String(num);
       });
-
       el.addEventListener("blur", function () {
-        var num = parseInputNumber(el.value);
-        el.value = formatInputComma(num);
+        el.value = formatInputComma(parseInputNumber(el.value));
       });
-
       el.addEventListener("input", calculate);
     }
 
-    // ===== 計算関数 =====
+    /** 比較表セル（金額 + 補足テキスト） */
+    function formatTableCell(mainValue, subText) {
+      return (
+        '<div class="cell-main">' + formatMoney(mainValue) + "</div>" +
+        '<div class="cell-sub">' + subText + "</div>"
+      );
+    }
 
-    /** 年間の燃料代 = 走行距離 ÷ 燃費 × ガソリン単価 */
+    // ===== 積み上げ棒グラフ =====
+
+    /**
+     * 積み上げ棒グラフを描画
+     * @param {Object} cost - { vehicleCost, maintenanceCost, fuelCost, totalCost }
+     * @param {string} trackId - 棒グラフコンテナのID
+     * @param {string} totalId - 合計金額表示のID
+     * @param {number} maxTotal - スケール基準（2本の棒で共通）
+     */
+    function updateStackedBar(cost, trackId, totalId, maxTotal) {
+      var track = document.getElementById(trackId);
+      var segments = [
+        { key: "fuelCost", cls: "seg-fuel" },
+        { key: "maintenanceCost", cls: "seg-maint" },
+        { key: "vehicleCost", cls: "seg-vehicle" }
+      ];
+
+      var html = "";
+      segments.forEach(function (seg) {
+        var value = cost[seg.key];
+        if (value <= 0) return;
+
+        // 棒の幅 = セグメント金額 ÷ 最大総コスト
+        var widthPct = maxTotal > 0 ? (value / maxTotal) * 100 : 0;
+        // 幅が十分なときだけ棒の中に金額を表示
+        var showLabel = widthPct >= 7;
+        var label = showLabel ? formatBarLabel(value) : "";
+
+        html +=
+          '<div class="stacked-seg ' + seg.cls + '" style="width:' + widthPct + '%">' +
+          label + "</div>";
+      });
+
+      track.innerHTML = html;
+      document.getElementById(totalId).textContent = formatMoney(cost.totalCost);
+    }
+
+    // ===== メイン計算 =====
+
     function calcAnnualFuelCost(annualDistance, mileage, gasPrice) {
       if (mileage <= 0) return null;
       return (annualDistance / mileage) * gasPrice;
     }
 
-    /**
-     * 棒グラフエリアを更新する
-     * @param {Object} cost - { vehicleCost, maintenanceCost, fuelCost, totalCost }
-     * @param {string} barId - 棒グラフ要素のID
-     * @param {string} amountId - 総コスト表示要素のID
-     * @param {string} breakdownId - 内訳表示要素のID
-     * @param {number} maxTotal - 棒グラフの最大値（100%の基準）
-     */
-    function updateChartBar(cost, barId, amountId, breakdownId, maxTotal) {
-      // 横棒グラフの長さ（総コスト比較を最優先）
-      var barWidth = maxTotal > 0 ? (cost.totalCost / maxTotal) * 100 : 0;
-      document.getElementById(barId).style.width = barWidth + "%";
-
-      // 棒グラフ横の総コスト金額
-      document.getElementById(amountId).textContent = formatMoney(cost.totalCost);
-
-      // 棒グラフ直下の内訳テキスト（色分け表示）
-      document.getElementById(breakdownId).innerHTML = formatBreakdown(cost);
-    }
-
-    /**
-     * 内訳の1項目をHTMLに変換（色クラス付き）
-     * @param {string} label - 表示ラベル（例: 車両代）
-     * @param {number} value - 金額（円）
-     * @param {string} colorClass - 色分け用CSSクラス
-     */
-    function formatBreakdownItem(label, value, colorClass) {
-      return (
-        '<span class="breakdown-item ' + colorClass + '">' +
-        label + ' <span class="chart-breakdown-value">' + formatMoney(value) + "</span>" +
-        "</span>"
-      );
-    }
-
-    /**
-     * 内訳テキストを組み立てる
-     * 買い替え: 「車両代 250万円 ｜ 維持費 25万円 ｜ 燃料代 70万円」
-     * 維持: 「維持費 50万円 ｜ 燃料代 71万円」（車両代は0なので非表示）
-     */
-    function formatBreakdown(cost) {
-      var parts = [];
-      var sep = '<span class="chart-breakdown-sep">｜</span>';
-
-      // 車両代（買い替え時のみ）
-      if (cost.vehicleCost > 0) {
-        parts.push(formatBreakdownItem("車両代", cost.vehicleCost, "breakdown-vehicle"));
-      }
-
-      // 維持費（比較期間の合計）
-      parts.push(formatBreakdownItem("維持費", cost.maintenanceCost, "breakdown-maintenance"));
-
-      // 燃料代（比較期間の合計）
-      parts.push(formatBreakdownItem("燃料代", cost.fuelCost, "breakdown-fuel"));
-
-      return parts.join(sep);
-    }
-
-    /** 入力値を読み取り、結果エリア全体を再計算・再表示 */
     function calculate() {
       var errorEl = document.getElementById("error");
       errorEl.classList.remove("show");
@@ -902,105 +861,117 @@
         errorEl.classList.add("show");
       }
 
-      // --- 燃料代・維持費・車両代・総コストを計算 ---
+      // --- 計算（ロジックは変更なし） ---
 
       var annualFuelKeep = calcAnnualFuelCost(annualDistance, currentMileage, gasPrice);
       var annualFuelReplace = calcAnnualFuelCost(annualDistance, newMileage, gasPrice);
 
-      // 比較期間の燃料代合計
       var keepFuelTotal = annualFuelKeep * compareYears;
       var replaceFuelTotal = annualFuelReplace * compareYears;
-
-      // 比較期間の維持費合計 = 年間維持費 × 比較年数
       var keepMaintenanceTotal = currentMaintenanceYearly * compareYears;
       var replaceMaintenanceTotal = newMaintenanceYearly * compareYears;
-
-      // 車両購入コスト = 新車価格 − 下取り価格
       var purchaseCost = Math.max(0, newCarPrice - tradeInPrice);
 
-      // 今の車を維持する場合のコスト内訳
       var keepCost = {
-        vehicleCost: 0,                          // 維持なので車両購入費は不要
-        maintenanceCost: keepMaintenanceTotal,   // 比較期間の維持費
-        fuelCost: keepFuelTotal,                 // 比較期間の燃料代
-        totalCost: keepFuelTotal + keepMaintenanceTotal  // 燃料代 + 維持費
+        vehicleCost: 0,
+        maintenanceCost: keepMaintenanceTotal,
+        fuelCost: keepFuelTotal,
+        totalCost: keepFuelTotal + keepMaintenanceTotal
       };
 
-      // 買い替える場合のコスト内訳
       var replaceCost = {
-        vehicleCost: purchaseCost,               // 新車価格 − 下取り価格
-        maintenanceCost: replaceMaintenanceTotal,// 比較期間の維持費
-        fuelCost: replaceFuelTotal,              // 比較期間の燃料代
+        vehicleCost: purchaseCost,
+        maintenanceCost: replaceMaintenanceTotal,
+        fuelCost: replaceFuelTotal,
         totalCost: purchaseCost + replaceFuelTotal + replaceMaintenanceTotal
       };
 
       var totalKeep = keepCost.totalCost;
       var totalReplace = replaceCost.totalCost;
       var costDiff = totalReplace - totalKeep;
+      var absDiff = Math.abs(costDiff);
+      var maxTotal = Math.max(totalKeep, totalReplace, 1);
 
-      document.getElementById("keepFuelCost").textContent = formatMoney(keepFuelTotal);
-      document.getElementById("keepFuelSub").textContent =
-        formatMoneyPerYear(annualFuelKeep) + " × " + compareYears + "年";
+      // タイトルに比較年数を反映
+      document.getElementById("chartTitle").textContent =
+        "総コストの比較（" + compareYears + "年間の合計）";
+      document.getElementById("tableTitle").textContent =
+        "費用の内訳（" + compareYears + "年間の合計）";
 
-      document.getElementById("replaceFuelCost").textContent = formatMoney(replaceFuelTotal);
-      document.getElementById("replaceFuelSub").textContent =
-        formatMoneyPerYear(annualFuelReplace) + " × " + compareYears + "年";
+      // --- 積み上げ棒グラフ ---
+      updateStackedBar(keepCost, "stackKeep", "stackKeepTotal", maxTotal);
+      updateStackedBar(replaceCost, "stackReplace", "stackReplaceTotal", maxTotal);
 
-      document.getElementById("keepMaintenanceCost").textContent = formatMoney(keepMaintenanceTotal);
-      document.getElementById("keepMaintenanceSub").textContent =
-        formatMoneyPerYear(currentMaintenanceYearly) + " × " + compareYears + "年";
+      // --- 比較表 ---
+      var fuelSubKeep = formatMoneyPerYear(annualFuelKeep) + " × " + compareYears + "年";
+      var fuelSubReplace = formatMoneyPerYear(annualFuelReplace) + " × " + compareYears + "年";
+      var maintSubKeep = formatMoneyPerYear(currentMaintenanceYearly) + " × " + compareYears + "年";
+      var maintSubReplace = formatMoneyPerYear(newMaintenanceYearly) + " × " + compareYears + "年";
 
-      document.getElementById("replaceMaintenanceCost").textContent = formatMoney(replaceMaintenanceTotal);
-      document.getElementById("replaceMaintenanceSub").textContent =
-        formatMoneyPerYear(newMaintenanceYearly) + " × " + compareYears + "年";
+      document.getElementById("cellKeepFuel").innerHTML =
+        formatTableCell(keepFuelTotal, fuelSubKeep);
+      document.getElementById("cellReplaceFuel").innerHTML =
+        formatTableCell(replaceFuelTotal, fuelSubReplace);
+      document.getElementById("cellKeepMaint").innerHTML =
+        formatTableCell(keepMaintenanceTotal, maintSubKeep);
+      document.getElementById("cellReplaceMaint").innerHTML =
+        formatTableCell(replaceMaintenanceTotal, maintSubReplace);
+      document.getElementById("cellKeepVehicle").innerHTML =
+        formatTableCell(0, "—");
+      document.getElementById("cellReplaceVehicle").innerHTML =
+        formatTableCell(purchaseCost, "新車価格 − 下取り価格");
+      document.getElementById("cellKeepTotal").innerHTML =
+        formatTableCell(totalKeep, compareYears + "年間の合計");
+      document.getElementById("cellReplaceTotal").innerHTML =
+        formatTableCell(totalReplace, compareYears + "年間の合計");
 
-      document.getElementById("purchaseCost").textContent = formatMoney(purchaseCost);
-      document.getElementById("costDiff").textContent =
-        (costDiff >= 0 ? "+" : "") + formatMoney(costDiff);
-
-      // 年間コスト = 総コスト ÷ 比較年数（1年あたりの負担額）
-      var annualKeepCost = totalKeep / compareYears;
-      var annualReplaceCost = totalReplace / compareYears;
-
-      document.getElementById("annualKeep").textContent = formatMoneyPerYear(annualKeepCost);
-      document.getElementById("annualReplace").textContent = formatMoneyPerYear(annualReplaceCost);
-
-      document.getElementById("totalKeep").textContent = formatMoney(totalKeep);
-      document.getElementById("totalReplace").textContent = formatMoney(totalReplace);
-      document.getElementById("totalDiff").textContent =
-        (costDiff >= 0 ? "+" : "") + formatMoney(costDiff);
-
+      // --- 判定 ---
       var verdictBox = document.getElementById("verdictBox");
+      var verdictIcon = document.getElementById("verdictIcon");
       var verdictMain = document.getElementById("verdictMain");
       var verdictSub = document.getElementById("verdictSub");
+      var summaryBox = document.getElementById("summaryBox");
 
       verdictBox.className = "verdict-box";
+      summaryBox.className = "summary-box";
 
-      var absDiff = Math.abs(costDiff);
       if (absDiff < 1000) {
         verdictBox.classList.add("neutral");
-        verdictMain.textContent = "ほぼ同じコスト";
+        summaryBox.classList.add("neutral-win");
+        verdictIcon.textContent = "⚖️";
+        verdictMain.textContent = "ほぼ同じコストです";
         verdictSub.textContent = compareYears + "年間の総コストに大きな差はありません。";
+        document.getElementById("summaryText").textContent = "総コストの差額";
+        document.getElementById("summaryAmount").textContent = "ほぼ同額";
       } else if (costDiff > 0) {
         verdictBox.classList.add("keep-better");
-        verdictMain.textContent = "今の車に乗り続ける方が " + formatMoney(absDiff) + " お得";
+        verdictIcon.textContent = "👍";
+        verdictMain.textContent = "現在の車を維持した方がお得です！";
         verdictSub.textContent =
-          compareYears + "年間で、買い替えより " + formatMoney(absDiff) + " 安く済みます。";
+          "総コストの差額：" + formatMoney(absDiff) + "（現在の車の方が安い）";
+        document.getElementById("summaryText").textContent = "総コストの差額";
+        document.getElementById("summaryAmount").textContent =
+          formatMoney(absDiff) + "（現在の車の方が安い）";
       } else {
         verdictBox.classList.add("replace-better");
-        verdictMain.textContent = "買い替えた方が " + formatMoney(absDiff) + " お得";
+        summaryBox.classList.add("replace-win");
+        verdictIcon.textContent = "👍";
+        verdictMain.textContent = "新しい車に買い替えた方がお得です！";
         verdictSub.textContent =
-          compareYears + "年間で、今の車を維持するより " + formatMoney(absDiff) + " 安く済みます。";
+          "総コストの差額：" + formatMoney(absDiff) + "（新しい車の方が安い）";
+        document.getElementById("summaryText").textContent = "総コストの差額";
+        document.getElementById("summaryAmount").textContent =
+          formatMoney(absDiff) + "（新しい車の方が安い）";
       }
 
-      // --- 棒グラフエリア（横棒 + 総コスト + 内訳）を更新 ---
-      var maxTotal = Math.max(totalKeep, totalReplace, 1);
-      updateChartBar(keepCost, "barKeep", "barKeepAmount", "breakdownKeep", maxTotal);
-      updateChartBar(replaceCost, "barReplace", "barReplaceAmount", "breakdownReplace", maxTotal);
+      // --- 年間コスト ---
+      document.getElementById("annualKeep").textContent =
+        formatMoneyPerYear(totalKeep / compareYears);
+      document.getElementById("annualReplace").textContent =
+        formatMoneyPerYear(totalReplace / compareYears);
     }
 
     // ===== イベント登録 =====
-
     setupMoneyInput("annualDistance");
     setupMoneyInput("newCarPrice");
     setupMoneyInput("tradeInPrice");
