@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-32YGB007DL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-32YGB007DL');
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>車買い替え 比較シミュレーター</title>
@@ -548,6 +556,96 @@
 
     footer p { margin: 0; }
     footer .footer-sub { margin-top: 8px; font-size: 0.72rem; color: #b8c2cc; }
+
+    /* 管理人のひとこと */
+    .admin-message {
+      margin-top: 20px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      padding: 20px;
+      border: 1px solid #e8edf3;
+    }
+
+    .admin-message-title {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: #2b6cb0;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #ebf8ff;
+    }
+
+    .admin-message-text {
+      font-size: 0.875rem;
+      color: #718096;
+      line-height: 1.75;
+    }
+
+    .admin-message-text + .admin-message-text {
+      margin-top: 0.75em;
+    }
+
+    /* 関連ツール */
+    .related-tools {
+      margin-top: 20px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      padding: 20px;
+      border: 1px solid #e8edf3;
+    }
+
+    .related-tools-title {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: #2b6cb0;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #ebf8ff;
+    }
+
+    .related-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .related-item {
+      display: block;
+      padding: 14px 16px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      background: #f8fafc;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .related-item:hover,
+    .related-item:focus-visible {
+      background: #ebf8ff;
+      border-color: rgba(49, 130, 206, 0.35);
+      outline: none;
+      box-shadow: 0 2px 8px rgba(49, 130, 206, 0.1);
+    }
+
+    .related-item-name {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: #2b6cb0;
+      margin-bottom: 4px;
+      line-height: 1.4;
+    }
+
+    .related-item-desc {
+      display: block;
+      font-size: 0.8125rem;
+      color: #718096;
+      line-height: 1.55;
+    }
   </style>
 </head>
 <body>
@@ -757,6 +855,37 @@
       </section>
 
     </main>
+
+    <aside class="admin-message" aria-labelledby="admin-message-heading">
+      <h2 class="admin-message-title" id="admin-message-heading">管理人のひとこと</h2>
+      <p class="admin-message-text">車の維持費や買い替えタイミングは、住宅ローンや教育費と合わせて考えると家計全体が見えやすくなります。</p>
+      <p class="admin-message-text">燃費改善だけでなく、維持費の差も含めて比較すると、買い替えの判断材料がより具体的になります。</p>
+      <p class="admin-message-text">この結果を参考に、無理のないペースで家計全体のバランスを考えてみてください。</p>
+    </aside>
+
+    <nav class="related-tools" aria-labelledby="related-tools-heading">
+      <h2 class="related-tools-title" id="related-tools-heading">関連ツール</h2>
+      <ul class="related-list">
+        <li>
+          <a class="related-item" href="https://mortgage-invest-simulator.vercel.app/" target="_blank" rel="noopener noreferrer">
+            <span class="related-item-name">🏆 人気No.1 住宅ローン × 投資比較シミュレーター</span>
+            <span class="related-item-desc">繰上返済と投資のどちらが有利か比較できます。</span>
+          </a>
+        </li>
+        <li>
+          <a class="related-item" href="https://asset-simulator-five.vercel.app/" target="_blank" rel="noopener noreferrer">
+            <span class="related-item-name">資産推移シミュレーター</span>
+            <span class="related-item-desc">毎月の積立や運用による資産形成を試算できます。</span>
+          </a>
+        </li>
+        <li>
+          <a class="related-item" href="https://education-fund-simulator.vercel.app/" target="_blank" rel="noopener noreferrer">
+            <span class="related-item-name">教育費シミュレーター</span>
+            <span class="related-item-desc">お子さまの進路に合わせた教育資金を試算できます。</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
 
     <footer>
       <p>※本シミュレーターは一定の条件に基づく参考試算です。実際の費用を保証するものではありません。</p>
