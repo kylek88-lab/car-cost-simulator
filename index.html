@@ -475,36 +475,6 @@
       .stacked-seg { font-size: 0.65rem; }
     }
 
-    /* 差額サマリー */
-    .summary-box {
-      background: #f0fff4;
-      border: 2px solid #9ae6b4;
-      border-radius: 10px;
-      padding: 14px 16px;
-      text-align: center;
-      margin-bottom: 16px;
-      font-size: 0.9rem;
-      color: #276749;
-    }
-
-    .summary-box.replace-win {
-      background: #ebf8ff;
-      border-color: #90cdf4;
-      color: #2b6cb0;
-    }
-
-    .summary-box.neutral-win {
-      background: #fffff0;
-      border-color: #f6e05e;
-      color: #744210;
-    }
-
-    .summary-box strong {
-      font-size: 1.15rem;
-      display: block;
-      margin-top: 4px;
-    }
-
     /* 年間コスト */
     .annual-cost {
       background: #f7fafc;
@@ -654,6 +624,104 @@
       color: #718096;
       line-height: 1.55;
     }
+
+    /* 用語説明・結果ガイド（全シミュレーター共通） */
+    .label-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .label-row label {
+      margin-bottom: 0;
+    }
+
+    .term-help-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1px solid #cbd5e0;
+      background: #edf2f7;
+      color: #4a5568;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      flex-shrink: 0;
+      line-height: 1;
+      padding: 0;
+      font-family: inherit;
+    }
+
+    .term-help-btn:hover,
+    .term-help-btn:focus-visible {
+      background: #dbeafe;
+      border-color: #90cdf4;
+      outline: none;
+    }
+
+    .term-help-panel {
+      display: none;
+      margin: 0 0 10px;
+      padding: 10px 12px;
+      background: #f7fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      color: #4a5568;
+      line-height: 1.65;
+    }
+
+    .term-help-panel.open {
+      display: block;
+    }
+
+    .result-guide {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+      background: #f7fafc;
+    }
+
+    .result-guide-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #4a5568;
+      margin-bottom: 8px;
+    }
+
+    .result-guide-body {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: #2d3748;
+    }
+
+    .result-guide-detail {
+      display: block;
+      margin-top: 6px;
+      font-size: 0.8rem;
+      color: #718096;
+    }
+
+    .result-guide--good {
+      border-left: 4px solid #38a169;
+      background: #f0fff4;
+    }
+
+    .result-guide--warn {
+      border-left: 4px solid #d69e2e;
+      background: #fffff0;
+    }
+
+    .result-guide--bad {
+      border-left: 4px solid #e53e3e;
+      background: #fff5f5;
+    }
+
+    .result-guide--neutral {
+      border-left: 4px solid #cbd5e0;
+    }
   </style>
 </head>
 <body>
@@ -692,7 +760,11 @@
         <div id="error" class="error"></div>
 
         <div class="field">
-          <label for="compareYears">比較年数</label>
+          <div class="label-row">
+            <label for="compareYears">比較年数</label>
+            <button type="button" class="term-help-btn" data-term-help="compareYears" aria-expanded="false" aria-controls="termHelp-compareYears">?</button>
+          </div>
+          <div class="term-help-panel" id="termHelp-compareYears"></div>
           <div class="input-wrap">
             <input type="number" id="compareYears" value="5" min="1" step="1" />
             <span class="unit">年</span>
@@ -702,28 +774,44 @@
         <div class="field-group">
           <div class="field-group-title">現在の車の情報</div>
           <div class="field">
-            <label for="annualDistance">年間走行距離</label>
+            <div class="label-row">
+              <label for="annualDistance">年間走行距離</label>
+              <button type="button" class="term-help-btn" data-term-help="annualDistance" aria-expanded="false" aria-controls="termHelp-annualDistance">?</button>
+            </div>
+            <div class="term-help-panel" id="termHelp-annualDistance"></div>
             <div class="input-wrap">
               <input type="text" inputmode="numeric" id="annualDistance" value="10,000" autocomplete="off" />
               <span class="unit">km</span>
             </div>
           </div>
           <div class="field">
-            <label for="currentMileage">燃費</label>
+            <div class="label-row">
+              <label for="currentMileage">燃費</label>
+              <button type="button" class="term-help-btn" data-term-help="currentMileage" aria-expanded="false" aria-controls="termHelp-currentMileage">?</button>
+            </div>
+            <div class="term-help-panel" id="termHelp-currentMileage"></div>
             <div class="input-wrap">
               <input type="number" id="currentMileage" value="10" min="0.1" step="0.1" />
               <span class="unit">km/L</span>
             </div>
           </div>
           <div class="field">
-            <label for="gasPrice">ガソリン価格</label>
+            <div class="label-row">
+              <label for="gasPrice">ガソリン価格</label>
+              <button type="button" class="term-help-btn" data-term-help="gasPrice" aria-expanded="false" aria-controls="termHelp-gasPrice">?</button>
+            </div>
+            <div class="term-help-panel" id="termHelp-gasPrice"></div>
             <div class="input-wrap">
               <input type="number" id="gasPrice" value="170" min="0" step="1" />
               <span class="unit">円/L</span>
             </div>
           </div>
           <div class="field">
-            <label for="currentMaintenance">年間維持費</label>
+            <div class="label-row">
+              <label for="currentMaintenance">年間維持費</label>
+              <button type="button" class="term-help-btn" data-term-help="currentMaintenance" aria-expanded="false" aria-controls="termHelp-currentMaintenance">?</button>
+            </div>
+            <div class="term-help-panel" id="termHelp-currentMaintenance"></div>
             <div class="input-wrap">
               <input type="text" inputmode="numeric" id="currentMaintenance" value="100,000" autocomplete="off" />
               <span class="unit">円／年</span>
@@ -735,14 +823,22 @@
         <div class="field-group">
           <div class="field-group-title">新しい車の情報</div>
           <div class="field">
-            <label for="newMileage">燃費</label>
+            <div class="label-row">
+              <label for="newMileage">燃費</label>
+              <button type="button" class="term-help-btn" data-term-help="newMileage" aria-expanded="false" aria-controls="termHelp-newMileage">?</button>
+            </div>
+            <div class="term-help-panel" id="termHelp-newMileage"></div>
             <div class="input-wrap">
               <input type="number" id="newMileage" value="16" min="0.1" step="0.1" />
               <span class="unit">km/L</span>
             </div>
           </div>
           <div class="field">
-            <label for="newMaintenance">年間維持費</label>
+            <div class="label-row">
+              <label for="newMaintenance">年間維持費</label>
+              <button type="button" class="term-help-btn" data-term-help="newMaintenance" aria-expanded="false" aria-controls="termHelp-newMaintenance">?</button>
+            </div>
+            <div class="term-help-panel" id="termHelp-newMaintenance"></div>
             <div class="input-wrap">
               <input type="text" inputmode="numeric" id="newMaintenance" value="50,000" autocomplete="off" />
               <span class="unit">円／年</span>
@@ -750,14 +846,22 @@
             <p class="hint">車検・保険・税金・メンテナンスなど</p>
           </div>
           <div class="field">
-            <label for="newCarPrice">新車価格</label>
+            <div class="label-row">
+              <label for="newCarPrice">新車価格</label>
+              <button type="button" class="term-help-btn" data-term-help="newCarPrice" aria-expanded="false" aria-controls="termHelp-newCarPrice">?</button>
+            </div>
+            <div class="term-help-panel" id="termHelp-newCarPrice"></div>
             <div class="input-wrap">
               <input type="text" inputmode="numeric" id="newCarPrice" value="3,000,000" autocomplete="off" />
               <span class="unit">円</span>
             </div>
           </div>
           <div class="field">
-            <label for="tradeInPrice">下取り価格</label>
+            <div class="label-row">
+              <label for="tradeInPrice">下取り価格</label>
+              <button type="button" class="term-help-btn" data-term-help="tradeInPrice" aria-expanded="false" aria-controls="termHelp-tradeInPrice">?</button>
+            </div>
+            <div class="term-help-panel" id="termHelp-tradeInPrice"></div>
             <div class="input-wrap">
               <input type="text" inputmode="numeric" id="tradeInPrice" value="500,000" autocomplete="off" />
               <span class="unit">円</span>
@@ -840,11 +944,7 @@
           </table>
         </div>
 
-        <!-- 差額サマリー -->
-        <div class="summary-box" id="summaryBox">
-          <span id="summaryText">—</span>
-          <strong id="summaryAmount">—</strong>
-        </div>
+        <div id="resultGuide" class="result-guide result-guide--neutral"></div>
 
         <!-- 年間コスト -->
         <div class="annual-cost">
@@ -908,6 +1008,70 @@
   </div>
 
   <script>
+    /**
+     * 用語説明・結果ガイド共通UI
+     * 各シミュレーターの index.html に同内容を埋め込んで使用
+     */
+    var SimulatorUI = (function () {
+      /** 用語説明パネルにテキストをセットし、?ボタンの開閉を設定 */
+      function initTermHelp(terms) {
+        Object.keys(terms).forEach(function (key) {
+          var panel = document.getElementById("termHelp-" + key);
+          if (panel) panel.textContent = terms[key];
+        });
+
+        document.querySelectorAll(".term-help-btn").forEach(function (btn) {
+          btn.addEventListener("click", function (e) {
+            e.preventDefault();
+            var key = btn.getAttribute("data-term-help");
+            var panel = document.getElementById("termHelp-" + key);
+            if (!panel) return;
+
+            var willOpen = !panel.classList.contains("open");
+            document.querySelectorAll(".term-help-panel").forEach(function (p) {
+              p.classList.remove("open");
+            });
+            document.querySelectorAll(".term-help-btn").forEach(function (b) {
+              b.setAttribute("aria-expanded", "false");
+            });
+
+            if (willOpen) {
+              panel.classList.add("open");
+              btn.setAttribute("aria-expanded", "true");
+            }
+          });
+        });
+      }
+
+      /** 結果の見方エリアを更新（level: good / warn / bad / neutral） */
+      function renderResultGuide(id, level, message, detail) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        el.className = "result-guide result-guide--" + level;
+        el.innerHTML =
+          '<div class="result-guide-title">結果の見方</div>' +
+          '<div class="result-guide-body">' +
+          message +
+          (detail
+            ? '<span class="result-guide-detail">' + detail + "</span>"
+            : "") +
+          "</div>";
+      }
+
+      function clearResultGuide(id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        el.className = "result-guide result-guide--neutral";
+        el.innerHTML = "";
+      }
+
+      return {
+        initTermHelp: initTermHelp,
+        renderResultGuide: renderResultGuide,
+        clearResultGuide: clearResultGuide,
+      };
+    })();
+
     // ===== 表示まわりの共通関数 =====
 
     function getDisplayUnit() {
@@ -1040,26 +1204,31 @@
       if (annualDistance <= 0) {
         errorEl.textContent = "年間走行距離は0より大きい値を入力してください。";
         errorEl.classList.add("show");
+        SimulatorUI.clearResultGuide("resultGuide");
         return;
       }
       if (currentMileage <= 0 || newMileage <= 0) {
         errorEl.textContent = "燃費は0より大きい値を入力してください。";
         errorEl.classList.add("show");
+        SimulatorUI.clearResultGuide("resultGuide");
         return;
       }
       if (gasPrice < 0) {
         errorEl.textContent = "ガソリン価格は0以上の値を入力してください。";
         errorEl.classList.add("show");
+        SimulatorUI.clearResultGuide("resultGuide");
         return;
       }
       if (compareYears <= 0) {
         errorEl.textContent = "比較年数は1年以上を入力してください。";
         errorEl.classList.add("show");
+        SimulatorUI.clearResultGuide("resultGuide");
         return;
       }
       if (currentMaintenanceYearly < 0 || newMaintenanceYearly < 0) {
         errorEl.textContent = "年間維持費は0以上の値を入力してください。";
         errorEl.classList.add("show");
+        SimulatorUI.clearResultGuide("resultGuide");
         return;
       }
       if (tradeInPrice > newCarPrice) {
@@ -1136,38 +1305,26 @@
       var verdictIcon = document.getElementById("verdictIcon");
       var verdictMain = document.getElementById("verdictMain");
       var verdictSub = document.getElementById("verdictSub");
-      var summaryBox = document.getElementById("summaryBox");
 
       verdictBox.className = "verdict-box";
-      summaryBox.className = "summary-box";
 
       if (absDiff < 1000) {
         verdictBox.classList.add("neutral");
-        summaryBox.classList.add("neutral-win");
         verdictIcon.textContent = "⚖️";
         verdictMain.textContent = "ほぼ同じコストです";
         verdictSub.textContent = compareYears + "年間の総コストに大きな差はありません。";
-        document.getElementById("summaryText").textContent = "総コストの差額";
-        document.getElementById("summaryAmount").textContent = "ほぼ同額";
       } else if (costDiff > 0) {
         verdictBox.classList.add("keep-better");
         verdictIcon.textContent = "👍";
         verdictMain.textContent = "現在の車を維持した方がお得です！";
         verdictSub.textContent =
           "総コストの差額：" + formatMoney(absDiff) + "（現在の車の方が安い）";
-        document.getElementById("summaryText").textContent = "総コストの差額";
-        document.getElementById("summaryAmount").textContent =
-          formatMoney(absDiff) + "（現在の車の方が安い）";
       } else {
         verdictBox.classList.add("replace-better");
-        summaryBox.classList.add("replace-win");
         verdictIcon.textContent = "👍";
         verdictMain.textContent = "新しい車に買い替えた方がお得です！";
         verdictSub.textContent =
           "総コストの差額：" + formatMoney(absDiff) + "（新しい車の方が安い）";
-        document.getElementById("summaryText").textContent = "総コストの差額";
-        document.getElementById("summaryAmount").textContent =
-          formatMoney(absDiff) + "（新しい車の方が安い）";
       }
 
       // --- 年間コスト ---
@@ -1175,6 +1332,35 @@
         formatMoneyPerYear(totalKeep / compareYears);
       document.getElementById("annualReplace").textContent =
         formatMoneyPerYear(totalReplace / compareYears);
+
+      // --- 結果の見方 ---
+      var avgTotal = (totalKeep + totalReplace) / 2;
+      var diffRatio = avgTotal > 0 ? absDiff / avgTotal : 0;
+      var guideLevel, guideMsg, guideDetail;
+
+      if (absDiff < 1000) {
+        guideLevel = "bad";
+        guideMsg = "どちらを選んでも、総コストに大きな差はなさそうです。";
+        guideDetail = "乗り心地や安全性、維持の手間など、コスト以外の要素もあわせて考えてみてください。";
+      } else if (diffRatio < 0.05 || absDiff < 100000) {
+        guideLevel = "warn";
+        if (costDiff > 0) {
+          guideMsg = "今の車を維持する方がやや安くなる見込みですが、差額は大きくはありません。";
+        } else {
+          guideMsg = "買い替えた方がやや安くなる見込みですが、差額は大きくはありません。";
+        }
+        guideDetail = "ガソリン価格や維持費が少し変わると、結果も変わる可能性があります。";
+      } else {
+        guideLevel = "good";
+        if (costDiff > 0) {
+          guideMsg = "今の車を維持した方が、総コストではかなり有利に見えます。";
+        } else {
+          guideMsg = "買い替えた方が、総コストではかなり有利に見えます。";
+        }
+        guideDetail = "試算上の差額は " + formatMoney(absDiff) + " 程度です。";
+      }
+
+      SimulatorUI.renderResultGuide("resultGuide", guideLevel, guideMsg, guideDetail);
     }
 
     // ===== イベント登録 =====
@@ -1190,6 +1376,18 @@
 
     document.querySelectorAll('input[name="displayUnit"]').forEach(function (el) {
       el.addEventListener("change", calculate);
+    });
+
+    SimulatorUI.initTermHelp({
+      compareYears: "何年分のコストを比べる期間です。これからどれくらい乗る予定かを目安に入れてみてください。",
+      annualDistance: "1年間に走る距離の目安です。通勤や送迎、お出かけの頻度から考えてみてください。",
+      currentMileage: "今の車の燃費（1リットルで走れる距離）です。カタログ値や給油記録があると近い数字が入れやすいです。",
+      gasPrice: "1リットルあたりのガソリン代の目安です。よく利用するスタンドの値段を参考にしてください。",
+      currentMaintenance: "今の車の年間維持費です。車検・保険・税金・タイヤ交換など、車にかかる費用の合計イメージです。",
+      newMileage: "買い替え先の車の燃費です。カタログのWLTC燃費などを参考にしてください。",
+      newMaintenance: "新しい車の年間維持費です。新車割引や保証内容によって変わる場合があります。",
+      newCarPrice: "買い替え先の車の購入価格です。オプションや諸費用を除いた本体価格の目安で構いません。",
+      tradeInPrice: "現在の車を下取りに出したときの価格目安です。将来その車を売却したときに期待できる価格です。"
     });
 
     calculate();
